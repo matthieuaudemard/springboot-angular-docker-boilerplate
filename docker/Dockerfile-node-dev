@@ -1,0 +1,8 @@
+FROM node:16.20.1-slim
+ENV HOME=/usr/src/app
+# permet l'utilisation de la commande ng
+ENV ng=$HOME/node_modules/.bin/ng
+RUN mkdir -p $HOME
+WORKDIR $HOME
+RUN npm i -g npm && npm i @angular/cli@15
+EXPOSE 4200

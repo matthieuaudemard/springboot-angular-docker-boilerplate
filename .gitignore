@@ -1,7 +1,4 @@
-/.idea/jarRepositories.xml
-/.idea/springboot-angular-docker-boilerplate.iml
-/.idea/modules.xml
-/.idea/compiler.xml
+/.idea
 
 # Default ignored files
 /shelf/
@@ -12,5 +9,3 @@
 /dataSources/
 /dataSources.local.xml
 /encodings.xml
-/.idea/workspace.xml
-/.idea/libraries/
