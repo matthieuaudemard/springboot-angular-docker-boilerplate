@@ -3,27 +3,31 @@ version: '3.8'
 services:
   backend:
     container_name: backend
+    restart: on-failure
     build:
-      context: .
-      dockerfile: ./docker/Dockerfile-jdk-dev
+      context: ./backend
+      target: ${TARGET:-development}
+      args:
+        - JDK_IMAGE=11.0.19_7-jdk-jammy
+        - JRE_VERSION=11-jre-jammy
+        - APP_NAME=springboot-angular-docker-boilerplate
     volumes:
       - ./backend:/app
       - ./backend/.m2:/root/.m2
-    working_dir: /app
-    command: sh run.sh
     ports:
-      - '8080:8080'
+      - ${BACKEND_PORT:-8080}:8080
       - '35729:35729'
       - '5005:5005'
 
-  frontend: # The name of the service
+  frontend:
     container_name: frontend
+    restart: on-failure
     build:
-      context: .
-      dockerfile: ./docker/Dockerfile-node-dev
+      context: ./frontend
+      args:
+        - NODE_VERSION=16.20.1-slim
+        - NG_VERSION=15
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend:/app
     ports:
-      - '4200:4200' # Port mapping
-    command: >
-      bash -c "npm install && ./node_modules/.bin/ng serve --host 0.0.0.0 --port 4200"
+      - ${BACKEND_PORT:-4200}:4200
